@@ -10,7 +10,7 @@ export class Settings {
 
   getMeasurementSystem(): MeasurementSystem {
     const value = localStorage.getItem(this.MEASUREMENT_KEY);
-    return (value as MeasurementSystem) || 'us';
+    return (value as MeasurementSystem) || 'metric';
   }
 
   setMeasurementSystem(system: MeasurementSystem): void {

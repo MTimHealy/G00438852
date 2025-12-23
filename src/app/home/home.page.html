@@ -1,3 +1,6 @@
+<!-- Possible Extra. Add a floating/persistant quick menu at the bottom of the paage. To improve phone nav. -->
+<!-- Maybe add filtering/sorting or more than fifty on the drop down selector. DO NOT DO LOAD MORE. That seems like its annoying -->
+<!-- Possible Extra. Search by Nutrients/Title as API allows. Or use it for filter/sort. Maybe too much hassle.-->
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
@@ -25,7 +28,7 @@
     </ion-toolbar>
   </ion-header>
 
-  <!-- Ingredient Search Box -->
+
   <div class="search-box" style="padding: 16px;">
     <div class="search-row">
       <ion-item class="search-input">
@@ -37,7 +40,7 @@
         </ion-input>
       </ion-item>
 
-      <!-- Result Limit Dropdown -->
+      
       <ion-item class="result-selector">
         <ion-select [(ngModel)]="resultLimit" interface="popover">
           <ion-select-option [value]="10">10</ion-select-option>
@@ -55,12 +58,12 @@
     </div>
   </div>
 
-  <!-- Loading Spinner -->
+  
   <div *ngIf="loading" class="loading-container">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  <!-- Recipe Results -->
+  
   <ion-grid *ngIf="!loading && recipes.length > 0">
     <ion-row>
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let recipe of recipes">
@@ -79,7 +82,7 @@
     </ion-row>
   </ion-grid>
 
-  <!-- No Results Message -->
+  
   <div *ngIf="!loading && searched && recipes.length === 0" class="no-results">
     <p>No recipes found. Try different ingredients!</p>
   </div>
