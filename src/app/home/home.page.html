@@ -27,19 +27,62 @@
 
   <!-- Ingredient Search Box -->
   <div class="search-box" style="padding: 16px;">
-    <ion-item>
-      <ion-input
-        placeholder="Enter your ingredients!"
-        aria-label="Ingredient search input">
-      </ion-input>
-    </ion-item>
+    <div class="search-row">
+      <ion-item class="search-input">
+        <ion-input
+          [(ngModel)]="searchQuery"
+          placeholder="Enter your ingredients!"
+          aria-label="Ingredient search input"
+          (keyup.enter)="searchRecipes()">
+        </ion-input>
+      </ion-item>
+
+      <!-- Result Limit Dropdown -->
+      <ion-item class="result-selector">
+        <ion-select [(ngModel)]="resultLimit" interface="popover">
+          <ion-select-option [value]="10">10</ion-select-option>
+          <ion-select-option [value]="25">25</ion-select-option>
+          <ion-select-option [value]="50">50</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
     <div style="margin-top: 12px;">
-      <ion-button color="primary" expand="block" size="large">
+      <ion-button color="primary" expand="block" size="large" (click)="searchRecipes()">
         <ion-icon slot="start" name="search"></ion-icon>
         Search
       </ion-button>
     </div>
   </div>
 
-  
+  <!-- Loading Spinner -->
+  <div *ngIf="loading" class="loading-container">
+    <ion-spinner name="crescent"></ion-spinner>
+  </div>
+
+  <!-- Recipe Results -->
+  <ion-grid *ngIf="!loading && recipes.length > 0">
+    <ion-row>
+      <ion-col size="12" size-md="6" size-lg="4" *ngFor="let recipe of recipes">
+        <ion-card class="recipe-card">
+          <img [src]="recipe.image" [alt]="recipe.title" />
+          <ion-card-header>
+            <ion-card-title>{{ recipe.title }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-button expand="block" color="primary">
+              Details
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <!-- No Results Message -->
+  <div *ngIf="!loading && searched && recipes.length === 0" class="no-results">
+    <p>No recipes found. Try different ingredients!</p>
+  </div>
+
+
 </ion-content>
