@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { CapacitorHttp, HttpResponse } from '@capacitor/core';
-import { RecipeSearchResponse } from '../models/recipe.model';
+import { RecipeSearchResponse, RecipeDetails } from '../models/recipe.model';
 
 @Injectable({
   providedIn: 'root',
@@ -14,5 +14,12 @@ export class Recipe {
 
     const response: HttpResponse = await CapacitorHttp.get({ url });
     return response.data as RecipeSearchResponse;
+  }
+
+  async getRecipeDetails(id: number): Promise<RecipeDetails> {
+    const url = `${this.baseUrl}/${id}/information?apiKey=${this.apiKey}`;
+
+    const response: HttpResponse = await CapacitorHttp.get({ url });
+    return response.data as RecipeDetails;
   }
 }

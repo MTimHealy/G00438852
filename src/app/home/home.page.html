@@ -70,7 +70,7 @@
             <ion-card-title>{{ recipe.title }}</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-button expand="block" color="primary">
+            <ion-button expand="block" color="primary" [routerLink]="['/recipe-details', recipe.id]">
               Details
             </ion-button>
           </ion-card-content>

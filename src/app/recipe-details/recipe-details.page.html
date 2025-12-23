@@ -1,6 +1,6 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>recipe-details</ion-title>
+    <ion-title>{{ recipeDetails?.title || 'Recipe Details' }}</ion-title>
     <ion-buttons slot="end">
       <ion-button routerLink="/home">
         <ion-icon slot="start" name="home"></ion-icon>
@@ -19,7 +19,67 @@
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">recipe-details</ion-title>
+      <ion-title size="large">{{ recipeDetails?.title || 'Recipe Details' }}</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <div class="recipe-details-container">
+    <div *ngIf="loading" class="loading-container">
+      <ion-spinner></ion-spinner>
+      <p>Loading recipe details...</p>
+    </div>
+
+    <div *ngIf="error && !loading" class="error-container">
+      <p>{{ error }}</p>
+    </div>
+
+    <div *ngIf="recipeDetails && !loading">
+      <img [src]="recipeDetails.image" [alt]="recipeDetails.title" class="recipe-image" />
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Ingredients</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list>
+            <ion-item *ngFor="let ingredient of recipeDetails.extendedIngredients">
+              <img [src]="getIngredientImageUrl(ingredient)" [alt]="ingredient.original" slot="start" class="ingredient-image" />
+              <ion-label>
+                <h3>{{ ingredient.original }}</h3>
+                <p>{{ getIngredientAmount(ingredient) }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Instructions</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-list *ngIf="getSteps().length > 0">
+            <ion-item *ngFor="let step of getSteps()">
+              <ion-label>
+                <h3>Step {{ step.number }}</h3>
+                <p>{{ step.step }}</p>
+              </ion-label>
+            </ion-item>
+          </ion-list>
+          <p *ngIf="getSteps().length === 0">No instructions available for this recipe.</p>
+        </ion-card-content>
+      </ion-card>
+
+      <div class="favourite-button-container">
+        <ion-button
+          expand="block"
+          size="large"
+          [color]="isFavourite ? 'danger' : 'primary'"
+          (click)="toggleFavourite()">
+          <ion-icon slot="start" name="heart"></ion-icon>
+          {{ isFavourite ? 'Remove from Favourites' : 'Add to Favourites' }}
+        </ion-button>
+      </div>
+    </div>
+  </div>
 </ion-content>
