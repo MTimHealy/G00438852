@@ -20,9 +20,23 @@ export class HomePage {
   loading: boolean = false;
   searched: boolean = false;
   resultLimit: number = 10;
+  foodFact: string = '';
+  loadingFact: boolean = true;
 
   constructor(private recipeService: Recipe) {
     addIcons({ heart, settings, home, search });
+    this.loadFoodFact();
+  }
+
+  async loadFoodFact() {
+    try {
+      this.foodFact = await this.recipeService.getRandomFoodFact();
+      this.loadingFact = false;
+    } catch (error) {
+      console.error('Error loading food fact:', error);
+      this.foodFact = 'Did you know? Cooking is both an art and a science!';
+      this.loadingFact = false;
+    }
   }
 
   async searchRecipes() {

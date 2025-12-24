@@ -23,4 +23,11 @@ export class Recipe {
     const response: HttpResponse = await CapacitorHttp.get({ url });
     return response.data as RecipeDetails;
   }
+
+  async getRandomFoodFact(): Promise<string> {
+    const url = `https://api.spoonacular.com/food/trivia/random?apiKey=${this.apiKey}`;
+
+    const response: HttpResponse = await CapacitorHttp.get({ url });
+    return response.data.text;
+  }
 }

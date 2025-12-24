@@ -28,8 +28,11 @@
     </ion-toolbar>
   </ion-header>
 
+  <div class="page-title" style="padding: 24px 16px 16px 16px; text-align: center;">
+    <h1 style="margin: 0; font-size: 24px; font-weight: 600;">Search for a recipe below!</h1>
+  </div>
 
-  <div class="search-box" style="padding: 16px;">
+  <div class="search-box" style="padding: 0 16px 16px 16px;">
     <div class="search-row">
       <ion-item class="search-input">
         <ion-input
@@ -40,7 +43,7 @@
         </ion-input>
       </ion-item>
 
-      
+
       <ion-item class="result-selector">
         <ion-select [(ngModel)]="resultLimit" interface="popover">
           <ion-select-option [value]="10">10</ion-select-option>
@@ -58,13 +61,28 @@
     </div>
   </div>
 
-  
-  <div *ngIf="loading" class="loading-container">
+  <div *ngIf="!searched" class="food-fact-box" style="padding: 0 16px 24px 16px;">
+    <ion-card style="margin: 0; width: 100%; min-height: 600px; display: flex; align-items: center; justify-content: center;">
+      <ion-card-content style="padding: 48px; text-align: center; width: 100%;">
+        <div *ngIf="loadingFact" style="text-align: center;">
+          <ion-spinner name="dots"></ion-spinner>
+        </div>
+        <div *ngIf="!loadingFact">
+          <div style="font-size: 48px; margin-bottom: 24px;">🍽️</div>
+          <p style="margin: 0; font-size: 18px; line-height: 1.8; font-style: italic;">
+            {{ foodFact }}
+          </p>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <div *ngIf="loading" class="loading-container" style="padding: 40px 0; text-align: center;">
     <ion-spinner name="crescent"></ion-spinner>
   </div>
 
-  
-  <ion-grid *ngIf="!loading && recipes.length > 0">
+
+  <ion-grid *ngIf="!loading && recipes.length > 0" style="padding: 16px;">
     <ion-row>
       <ion-col size="12" size-md="6" size-lg="4" *ngFor="let recipe of recipes">
         <ion-card class="recipe-card">
@@ -82,10 +100,13 @@
     </ion-row>
   </ion-grid>
 
-  
-  <div *ngIf="!loading && searched && recipes.length === 0" class="no-results">
+
+  <div *ngIf="!loading && searched && recipes.length === 0" class="no-results" style="padding: 40px 16px; text-align: center;">
     <p>No recipes found. Try different ingredients!</p>
   </div>
 
+  <div style="flex: 1;"></div>
+
+  <div style="border-top: 2px solid var(--ion-color-light); margin: 0 16px 16px 16px;"></div>
 
 </ion-content>

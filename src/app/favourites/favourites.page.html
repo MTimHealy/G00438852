@@ -28,12 +28,28 @@
   <!-- Possible extra. Suggest a random recipe when its empty? Maybe fact as allowed by API-->
   <div class="favourites-container">
     <div *ngIf="favouriteRecipes.length === 0" class="no-favourites">
-      <ion-icon name="heart" class="empty-heart"></ion-icon>
-      <h2>No Favourites Yet</h2>
-      <p>Add recipes to your favourites to see them here!</p>
-      <ion-button routerLink="/home" color="primary">
-        Browse Recipes
-      </ion-button>
+      <div class="food-fact-box" style="padding: 40px 16px;">
+        <ion-card style="margin: 0; width: 100%; min-height: 500px; display: flex; align-items: center; justify-content: center;">
+          <ion-card-content style="padding: 48px; text-align: center; width: 100%;">
+            <ion-icon name="heart" style="font-size: 64px; color: var(--ion-color-medium); margin-bottom: 24px;"></ion-icon>
+            <h2 style="margin: 0 0 12px 0;">No Favourites Yet</h2>
+            <p style="margin: 0 0 24px 0; color: var(--ion-color-medium);">Add recipes to your favourites to see them here!</p>
+
+            <div *ngIf="loadingFact" style="text-align: center; margin-bottom: 24px;">
+              <ion-spinner name="dots"></ion-spinner>
+            </div>
+            <div *ngIf="!loadingFact" style="margin-bottom: 24px;">
+              <p style="margin: 0; font-size: 16px; line-height: 1.8; font-style: italic; padding: 20px; background: var(--ion-color-light); border-radius: 8px;">
+                {{ foodFact }}
+              </p>
+            </div>
+
+            <ion-button routerLink="/home" color="primary" size="large">
+              Browse Recipes
+            </ion-button>
+          </ion-card-content>
+        </ion-card>
+      </div>
     </div>
 
     <ion-grid *ngIf="favouriteRecipes.length > 0">
@@ -59,4 +75,9 @@
       </ion-row>
     </ion-grid>
   </div>
+
+  <div style="flex: 1;"></div>
+
+  <div style="border-top: 2px solid var(--ion-color-light); margin: 0 16px 16px 16px;"></div>
+
 </ion-content>
