@@ -10,8 +10,8 @@ export class Recipe {
   private apiKey = environment.spoonacularApiKey;
   private baseUrl = 'https://api.spoonacular.com/recipes';
 
-  async searchRecipes(query: string, number: number = 10): Promise<RecipeSearchResponse> {
-    const url = `${this.baseUrl}/complexSearch?query=${encodeURIComponent(query)}&number=${number}&apiKey=${this.apiKey}`;
+  async searchRecipes(query: string, number: number = 10, offset: number = 0): Promise<RecipeSearchResponse> {
+    const url = `${this.baseUrl}/complexSearch?query=${encodeURIComponent(query)}&number=${number}&offset=${offset}&apiKey=${this.apiKey}`;
 
     const response: HttpResponse = await CapacitorHttp.get({ url });
     return response.data as RecipeSearchResponse;
