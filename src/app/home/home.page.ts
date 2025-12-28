@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonLabel, IonItem, IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonLabel, IonItem, IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { heart, settings, home, search, arrowUp } from 'ionicons/icons';
+import { heart, settings, home, search, arrowUp, heartOutline } from 'ionicons/icons';
 import { Recipe } from '../services/recipe';
 import { Recipe as RecipeModel } from '../models/recipe.model';
+import { Favourites } from '../services/favourites';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
@@ -12,7 +13,7 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-home',
   templateUrl: 'home.page.html',
   styleUrls: ['home.page.scss'],
-  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonLabel, IonItem, IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonGrid, IonRow, IonCol, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton, RouterLink, CommonModule, FormsModule],
+  imports: [IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonButton, IonIcon, IonLabel, IonItem, IonInput, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonSpinner, IonInfiniteScroll, IonInfiniteScrollContent, IonFab, IonFabButton, RouterLink, CommonModule, FormsModule],
 })
 export class HomePage {
   searchQuery: string = '';
@@ -26,8 +27,8 @@ export class HomePage {
   loadingFact: boolean = true;
   showBackToTop: boolean = false;
 
-  constructor(private recipeService: Recipe) {
-    addIcons({ heart, settings, home, search, arrowUp });
+  constructor(private recipeService: Recipe, private favouritesService: Favourites) {
+    addIcons({ heart, settings, home, search, arrowUp, heartOutline });
     this.loadFoodFact();
   }
 
@@ -38,6 +39,20 @@ export class HomePage {
 
   scrollToTop(content: IonContent) {
     content.scrollToTop(500);
+  }
+
+  isFavourite(recipeId: number): boolean {
+    return this.favouritesService.isFavourite(recipeId);
+  }
+
+  toggleFavourite(recipe: RecipeModel, event: Event): void {
+    event.stopPropagation();
+
+    if (this.isFavourite(recipe.id)) {
+      this.favouritesService.removeFavourite(recipe.id);
+    } else {
+      this.favouritesService.addFavourite(recipe);
+    }
   }
 
   async loadFoodFact() {

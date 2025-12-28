@@ -75,9 +75,20 @@
         <ion-card-title>{{ recipe.title }}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-button expand="block" color="primary" [routerLink]="['/recipe-details', recipe.id]">
-          Details
-        </ion-button>
+        <div class="button-row">
+          <ion-button expand="block" color="primary" [routerLink]="['/recipe-details', recipe.id]">
+            Details
+          </ion-button>
+          <ion-button
+            [color]="isFavourite(recipe.id) ? 'danger' : 'primary'"
+            (click)="toggleFavourite(recipe, $event)"
+            [attr.aria-label]="isFavourite(recipe.id) ? 'Remove from favourites' : 'Add to favourites'">
+            <ion-icon
+              slot="icon-only"
+              [name]="isFavourite(recipe.id) ? 'heart' : 'heart-outline'">
+            </ion-icon>
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
   </div>

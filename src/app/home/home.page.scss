@@ -4,34 +4,6 @@ ion-content::part(scroll) {
   min-height: 100%;
 }
 
-#container {
-  text-align: center;
-
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-#container strong {
-  font-size: 20px;
-  line-height: 26px;
-}
-
-#container p {
-  font-size: 16px;
-  line-height: 22px;
-
-  color: #8c8c8c;
-
-  margin: 0;
-}
-
-#container a {
-  text-decoration: none;
-}
-
 .loading-container {
   display: flex;
   justify-content: center;
@@ -64,6 +36,21 @@ ion-content::part(scroll) {
     font-size: 1.1rem;
     font-weight: 600;
   }
+
+  ion-card-content {
+    .button-row {
+      display: flex;
+      gap: 8px;
+
+      ion-button:first-child {
+        flex: 1;
+      }
+
+      ion-button:last-child {
+        flex-shrink: 0;
+      }
+    }
+  }
 }
 
 .no-results {
@@ -73,27 +60,6 @@ ion-content::part(scroll) {
 
   p {
     font-size: 1.1rem;
-  }
-}
-
-.search-row {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-
-  .search-input {
-    flex: 1;
-  }
-
-  .result-selector {
-    width: 80px;
-    min-width: 80px;
-    flex-shrink: 0;
-
-    ion-select {
-      padding: 0;
-      min-width: 60px;
-    }
   }
 }
 
