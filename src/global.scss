@@ -36,13 +36,6 @@
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import '@ionic/angular/css/palettes/dark.system.css';
 
-/**
- * Custom Theme Variables
- * -----------------------------------------------------
- * Dark mode as default, light mode as toggle
- */
-
-/* Dark mode theme (default) */
 :root {
   --ion-color-primary: #1e40af;
   --ion-color-primary-rgb: 30, 64, 175;
@@ -108,7 +101,6 @@
   --ion-color-dark-contrast-rgb: 0, 0, 0;
 }
 
-/* Light mode theme (toggle on) */
 body.light-theme {
   --ion-color-primary: #1e40af;
   --ion-color-primary-rgb: 30, 64, 175;
